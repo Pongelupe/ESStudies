@@ -1,19 +1,33 @@
-class ListaNegociacao {
+"use strict";
 
-    constructor() {
-        this._negociacoes = [];
-    }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-    add(negociacao) {
-        this._negociacoes.push(negociacao);
-    }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    get negociacoes() {
-        return [].concat(this._negociacoes);
-    }
-
-    esvazia() {
+var ListaNegociacao = function () {
+    function ListaNegociacao() {
+        _classCallCheck(this, ListaNegociacao);
 
         this._negociacoes = [];
     }
-}
+
+    _createClass(ListaNegociacao, [{
+        key: "add",
+        value: function add(negociacao) {
+            this._negociacoes.push(negociacao);
+        }
+    }, {
+        key: "esvazia",
+        value: function esvazia() {
+
+            this._negociacoes = [];
+        }
+    }, {
+        key: "negociacoes",
+        get: function get() {
+            return [].concat(this._negociacoes);
+        }
+    }]);
+
+    return ListaNegociacao;
+}();
