@@ -1,0 +1,20 @@
+{
+  "name": "learningmongo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "pongelupe",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "consign": "^0.1.6",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.9"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.1"
+  }
+}
