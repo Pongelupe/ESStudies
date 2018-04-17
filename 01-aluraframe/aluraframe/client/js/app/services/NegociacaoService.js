@@ -74,3 +74,4 @@ var NegociacaoService = function () {
 
     return NegociacaoService;
 }();
+//# sourceMappingURL=NegociacaoService.js.map

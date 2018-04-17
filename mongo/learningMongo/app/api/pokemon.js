@@ -49,7 +49,6 @@ module.exports = function (app) {
 				res.json(pokemon);
 			}, (error) => {
 				console.log('nope');
-				console.log(error);
 				res.sendStatus(500);
 			});
 	};
