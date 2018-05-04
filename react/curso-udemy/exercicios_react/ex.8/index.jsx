@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Field from './field'
+import ClassComponent from './classComponent'
 
 ReactDOM.render((
-    <Field initialValue={'React'} />
+    <ClassComponent initialValue={10} label={'ola React contador'} />
 )
     , document.getElementById('app'))
