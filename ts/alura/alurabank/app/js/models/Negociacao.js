@@ -12,6 +12,17 @@ System.register([], function (exports_1, context_1) {
                     this.valor = valor;
                 }
                 get volume() { return this.quantidade * this.valor; }
+                toString() {
+                    console.log(`Data: ${this.data},
+            Quantidade: ${this.quantidade},
+            Valor: ${this.valor},
+            Volume: ${this.volume}`);
+                }
+                ehIgual(negociacao) {
+                    return (negociacao.data == this.data &&
+                        this.quantidade == negociacao.quantidade &&
+                        this.valor == negociacao.valor);
+                }
             };
             exports_1("Negociacao", Negociacao);
         }
