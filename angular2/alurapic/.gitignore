@@ -1,0 +1,14 @@
+.tmp
+.DS_Store
+.DS_Store?
+.dpl/
+./vscode
+client/.vscode
+server/.vscode
+server/node_modules
+client/node_modules
+client/typings
+client/app/**/*.js
+client/app/**/*.map
+client/npm-debug.log
+server/npm-debug.log
