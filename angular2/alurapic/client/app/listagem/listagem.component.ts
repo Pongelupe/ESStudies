@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Http } from "@angular/http"
 
 @Component({
     moduleId: module.id,
@@ -9,11 +8,8 @@ import { Http } from "@angular/http"
 export class ListagemComponent {
     fotos: Array<Object> = [];
 
-    constructor(http: Http) {
+    constructor() {
 
-        http.get('v1/fotos')
-            .map(res => res.json())
-            .subscribe(fotos => this.fotos = fotos,
-                err => console.log(err))
+        
     }
 }
