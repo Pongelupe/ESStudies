@@ -20,7 +20,9 @@
 
     <div class="row">
         <painel *ngFor="let foto of fotos | filtroPorTitulo:textoProcurado.value" titulo="{{foto.titulo}}" class="col-md-2">
-            <foto url={{foto.url}} titulo="{{foto.titulo}}"></foto>
+            <a [routerLink]="['/cadastro', foto._id]">
+                <foto url={{foto.url}} titulo="{{foto.titulo}}"></foto>
+            </a>
             <button class="btn btn-danger" (click)='remove(foto)'>Remover</button>
         </painel>
     </div>
