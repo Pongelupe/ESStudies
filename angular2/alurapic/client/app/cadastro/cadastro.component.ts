@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FotoComponent } from '../foto/foto.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FotoService } from '../foto/foto.service';
 
 @Component({
     moduleId: module.id,
@@ -10,9 +11,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class CadastroComponent {
 
     private foto: FotoComponent = new FotoComponent();
-    private meuForm: FormGroup;
+    meuForm: FormGroup;
 
-    constructor(fb: FormBuilder) {
+    constructor(private service: FotoService, fb: FormBuilder) {
         this.meuForm = fb.group({
             titulo: ["", Validators.compose([Validators.required, Validators.minLength(4)])],
             url: ["", Validators.required],
@@ -23,6 +24,9 @@ export class CadastroComponent {
     cadastrar(event: Event) {
         event.preventDefault();
         console.log(this.foto);
-
+        this.service
+            .cadastra(this.foto)
+            .subscribe(() => this.foto = new FotoComponent(),
+                err => console.log(err));
     }
 }
