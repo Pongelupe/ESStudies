@@ -11,14 +11,25 @@ import { Carro } from '../../models/Carro';
 export class EscolhaPage {
 
   public carro: Carro;
+  public acessorios = [];
+  public _precoTotal: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.carro = navParams.get('carro');
-
+    this._precoTotal = this.carro.preco;
+    this.acessorios = [
+      { nome: 'Freio ABS', preco: 800 },
+      { nome: 'Ar-condicionado', preco: 1000 },
+      { nome: 'MP3 Player', preco: 500 }
+    ];
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EscolhaPage');
+  get precoTotal() { return this._precoTotal }
+
+  atualizaTotal(ativado: boolean, valor: number) {
+    ativado ?
+      this._precoTotal += valor :
+      this._precoTotal -= valor;
   }
 
 }
