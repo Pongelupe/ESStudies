@@ -37,8 +37,7 @@
         <h2>{{acessorio.nome}}</h2>
         <h4>R$ {{acessorio.preco}}</h4>
       </ion-label>
-      <ion-toggle color="secondary" #toggle
-      (ionChange)="atualizaTotal(toggle.checked, acessorio.preco)"></ion-toggle>
+      <ion-toggle color="secondary" #toggle (ionChange)="atualizaTotal(toggle.checked, acessorio)"></ion-toggle>
     </ion-item>
   </ion-item-group>
 
@@ -47,7 +46,7 @@
   </ion-item-divider>
 
   <ion-fab top right edge>
-    <button ion-fab>
+    <button ion-fab (click)="avancarCadastro()">
       <ion-icon name="arrow-dropright"></ion-icon>
     </button>
   </ion-fab>
