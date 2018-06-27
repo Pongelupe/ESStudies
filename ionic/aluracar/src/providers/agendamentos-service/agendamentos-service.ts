@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AgendamentosServiceProvider {
 
   private _url = 'http://localhost:8080/api';
 
-  constructor(private _http: Http) {
+  constructor(private _http: HttpClient) {
 
   }
 
