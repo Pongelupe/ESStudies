@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, Alert } from 'ion
 import { Carro } from '../../models/Carro';
 import { AgendamentosServiceProvider } from '../../providers/agendamentos-service/agendamentos-service';
 import { HomePage } from '../home/home';
+import { Agendamento } from '../../models/Agendamento';
 
 @IonicPage()
 @Component({
@@ -26,7 +27,15 @@ export class CadastroPage {
   }
 
   agenda() {
-    let agendamento = {
+    if (this.nome || this.endereco || this.email) {
+      this._alertCtrl.create({
+        title: "Preenchimento Obrigatório", subTitle: "Preencha todos os campos"
+        , buttons: [{ text: 'ok' }]
+      }).present();
+      return;
+    }
+
+    let agendamento: Agendamento = {
       nomeCliente: this.nome,
       enderecoCliente: this.endereco,
       emailCliente: this.email,
@@ -44,14 +53,18 @@ export class CadastroPage {
       ]
     });
 
+    let mensagem = "";
+
     this._agendamentosService.agenda(agendamento)
-      .subscribe(() => {
-        this._alert.setSubTitle('Agendamento realizado');
+      .finally(() => {
+        this._alert.setSubTitle(mensagem);
         this._alert.present();
+      })
+      .subscribe(() => {
+        mensagem = 'Agendamento realizado';
       },
         () => {
-          this._alert.setSubTitle('Falha no agendamento');
-          this._alert.present();
+          mensagem = 'Falha no agendamento';
         });
   }
 
