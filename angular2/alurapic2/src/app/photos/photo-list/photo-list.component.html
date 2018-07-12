@@ -1,1 +1,10 @@
-<app-photo *ngFor="let photo of photos" [url]="photo.url" [description]="photo.description"></app-photo>
+<div class="text-center mt-3 mb-3">
+    <form>
+        <input type="search" 
+        class="rounded" 
+        placeholder="search..." 
+        autofocus
+        (keyup)="filter = $event.target.value">
+    </form>
+</div>
+<app-photos [photos]="photos | filterByDescription: filter"></app-photos>
