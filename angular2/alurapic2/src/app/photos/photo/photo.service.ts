@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from '../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { Photo } from './photo';
 
-const API : string = 'http://localhost:3000';
+const API: string = 'http://localhost:3000';
 
 @Injectable({ providedIn: 'root' })
 export class PhotoService {
@@ -11,5 +11,10 @@ export class PhotoService {
 
     listFromUser(username: string): Observable<Photo[]> {
         return this._http.get<Photo[]>(`${API}/${username}/photos`);
+    }
+
+    listFromUserPaginated(username: string, page: number): Observable<Photo[]> {
+        const params = new HttpParams().append('page', page.toString());
+        return this._http.get<Photo[]>(`${API}/${username}/photos`, { params });
     }
 }

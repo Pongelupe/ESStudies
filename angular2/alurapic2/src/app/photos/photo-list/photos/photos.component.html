@@ -1,6 +1,6 @@
 <p class="text-center text-muted" *ngIf='photos.length == 0'>Sorry, no photos</p>
 <ol class="list-unstyled">
-  <li *ngFor="let cols of rows" class="row">
+  <li *ngFor="let cols of rows" class="row no-gutters">
     <div *ngFor="let photo of cols" class="col-4">
       <app-photo [url]="photo.url" [description]="photo.description"></app-photo>
     </div>

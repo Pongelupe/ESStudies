@@ -1,10 +1,9 @@
 <div class="text-center mt-3 mb-3">
     <form>
-        <input type="search" 
-        class="rounded" 
-        placeholder="search..." 
-        autofocus
-        (keyup)="filter = $event.target.value">
+        <i aria-hidden="true" class="fa fa-search mr-2"></i>
+        <input type="search" class="rounded" placeholder="search..." autofocus (keyup)="filter = debounce.next($event.target.value)">
     </form>
 </div>
 <app-photos [photos]="photos | filterByDescription: filter"></app-photos>
+
+<app-load-button [hasMore]="hasMore" (click)='load()'></app-load-button>
