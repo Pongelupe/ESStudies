@@ -1,17 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ApolloConfigModuleModule } from '../apollo-config-module.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatListModule, MatToolbarModule } from '@angular/material';
+import { ApolloConfigModuleModule } from '../apollo-config-module.module';
 
 @NgModule({
   exports: [
     BrowserModule,
     ApolloConfigModuleModule,
-    BrowserAnimationsModule,
-    MatListModule,
-    MatToolbarModule
+    BrowserAnimationsModule
   ]
 })
 export class CoreModule {
