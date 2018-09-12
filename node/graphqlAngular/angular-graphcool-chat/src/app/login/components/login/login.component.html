@@ -1,7 +1,11 @@
 <div class="login-container">
   <mat-card>
     <mat-card-title>
-      <mat-toolbar color="primary">{{ configs.actionText }}</mat-toolbar>
+      <mat-toolbar color="primary">
+        <span>{{ configs.actionText }}</span>
+        <span class="spacer"></span>
+        <mat-spinner diameter="25" strokeWidth="2" *ngIf="configs.isLoading"></mat-spinner>
+      </mat-toolbar>
     </mat-card-title>
     <mat-card-content>
 
@@ -35,6 +39,9 @@
             Enter at least 5 characters
           </mat-error>
         </mat-form-field>
+
+        <mat-slide-toggle [checked]="authService.keepSigned" (change)="onKeepSigned()">Keep me signed in</mat-slide-toggle>
+
         <button type="submit" mat-button color="primary" [disabled]="loginForm.invalid">{{ configs.actionText }}</button>
         <button type="button" mat-button color="primary" (click)="changeAction()">{{ configs.buttonActionText }}</button>
       </form>

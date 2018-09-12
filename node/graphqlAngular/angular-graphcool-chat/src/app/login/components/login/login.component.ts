@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
@@ -7,7 +7,6 @@ import { ErrorService } from '../../../core/services/error.service';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
-  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -17,14 +16,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   configs = {
     isLogin: true,
     actionText: 'SignIn',
-    buttonActionText: 'Create account'
+    buttonActionText: 'Create account',
+    isLoading: false
   };
   private nameControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
   private alive = true;
 
+  @HostBinding('class.app-login-spinner') private applySpinnerClass = true;
+
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    public authService: AuthService,
     private errorService: ErrorService,
     private snackBar: MatSnackBar
   ) { }
@@ -43,6 +45,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     console.log(this.loginForm.value);
 
+    this.configs.isLoading = true;
+
     const operation: Observable<{ id: string, token: string }> =
       this.configs.isLogin ? this.authService.signinUser(this.loginForm.value)
         : this.authService.signupUser(this.loginForm.value);
@@ -53,9 +57,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
       .subscribe(res => {
         console.log('Redirecting...', res);
+        const redirect = this.authService.redirectUrl || '/dashboard';
+        this.authService.redirectUrl = null;
+        this.configs.isLoading = false;
       }, err => {
         const error = this.errorService.getErrorMessage(err);
         console.log(error);
+        this.configs.isLoading = false;
         this.snackBar.open(error, 'Done', {
           duration: 5000,
           verticalPosition: 'top'
@@ -78,4 +86,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   get password(): FormControl { return <FormControl>this.loginForm.get('password'); }
 
   ngOnDestroy() { this.alive = false; }
+
+  onKeepSigned(): void { this.authService.toggleKeepSigned(); }
 }
