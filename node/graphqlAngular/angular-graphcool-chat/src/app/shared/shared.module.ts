@@ -6,10 +6,13 @@ import {
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
+  MatListModule,
   MatProgressSpinnerModule,
   MatSnackBarModule,
   MatToolbarModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatIconModule,
+  MatLineModule
 } from '@angular/material';
 
 @NgModule({
@@ -18,7 +21,10 @@ import {
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
+    MatListModule,
+    MatLineModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
     MatSnackBarModule,
