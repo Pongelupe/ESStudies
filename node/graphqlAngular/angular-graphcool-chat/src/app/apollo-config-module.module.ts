@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 import { Apollo, ApolloModule } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { environment } from '../environments/environment.prod';
-import { ApolloLink } from 'apollo-link';
+import { ApolloLink, Operation } from 'apollo-link';
+import { StorageKeys } from './storage-keys';
+import { GRAPHCOOL_CONFIG, GraphcoolConfig } from './core/providers/graphcool-config.provider';
 
 @NgModule({
   imports: [
@@ -20,9 +22,24 @@ import { ApolloLink } from 'apollo-link';
 })
 export class ApolloConfigModuleModule {
 
-  constructor(private apollo: Apollo, private httpLink: HttpLink) {
-    const uri = 'https://api.graph.cool/simple/v1/cjll6oa7d33iu0192082ot9n8';
+  constructor(
+    private apollo: Apollo,
+    @Inject(GRAPHCOOL_CONFIG) private graphcolConfig: GraphcoolConfig,
+    private httpLink: HttpLink) {
+      
+    const uri = this.graphcolConfig.simpleAPI;
     const http = httpLink.create({ uri });
+
+    const authMiddleware: ApolloLink = new ApolloLink((operation: Operation, forward) => {
+
+      operation.setContext({
+        headers: new HttpHeaders({
+          'Authorization': `Bearer ${this.getAuthToken()}`
+        })
+      });
+
+      return forward(operation);
+    });
 
     const linkError = onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {
@@ -36,11 +53,15 @@ export class ApolloConfigModuleModule {
     apollo.create({
       link: ApolloLink.from([
         linkError,
-        http
+        authMiddleware.concat(http)
       ]),
       cache: new InMemoryCache(),
       connectToDevTools: !environment.production
     });
+  }
+
+  private getAuthToken(): string {
+    return window.localStorage.getItem(StorageKeys.AUTH_TOKEN);
   }
 
 }
