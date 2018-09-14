@@ -13,7 +13,8 @@ import {
   MatToolbarModule,
   MatSlideToggleModule,
   MatIconModule,
-  MatLineModule
+  MatLineModule,
+  MatTabsModule
 } from '@angular/material';
 
 @NgModule({
@@ -31,6 +32,7 @@ import {
     MatToolbarModule,
     MatSnackBarModule,
     MatSlideToggleModule,
+    MatTabsModule,
     ReactiveFormsModule
   ]
 })
