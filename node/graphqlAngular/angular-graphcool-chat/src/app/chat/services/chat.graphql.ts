@@ -47,10 +47,9 @@ export const USER_CHATS_QUERY = gql`
   }
 `;
 
-export const CHAT_BY_ID_OR_BY_USERS_QUERY = gql `
+export const CHAT_BY_ID_OR_BY_USERS_QUERY = gql`
   query ChatByIdOrByUsersQuery($chatId: ID!, $loggedUserId: ID!, $targetUserId: ID!) {
     Chat(
-  query ChatByIdOrByUsersQuery($chatId: ID!, $loggedUserId: ID!, $targetUserId: ID! ) {
     id: $chatId
     ) {
       id
@@ -70,14 +69,42 @@ export const CHAT_BY_ID_OR_BY_USERS_QUERY = gql `
       }
     }
 
-    allChats(
-      filter: {
-        AND: [
-          { user_some: {id: $loggedUserId }}
-          { user_some: {id: $targetUserId }}
-        ],
-        isGroup: false
+      allChats(
+        filter: {
+          AND: [
+            { users_some: { id: $loggedUserId } },
+            { users_some: { id: $targetUserId } }
+          ],
+          isGroup: false
+        }
+      ) {
+        id
+        title
+        createdAt
+        isGroup
+        users(
+          first: 1,
+          filter: {
+            id_not: $loggedUserId
+          }
+        ) {
+          id
+          name
+          email
+          createdAt
+        }
       }
+
+    }
+`;
+
+export const CREATE_PRIVATE_CHAT_MUTATION = gql`
+  mutation CreatePrivateChatMutation($loggedUserId: ID!, $targetUserId: ID!) {
+    createChat(
+      usersIds: [
+        $loggedUserId,
+        $targetUserId
+      ]
     ) {
       id
       title
@@ -95,6 +122,5 @@ export const CHAT_BY_ID_OR_BY_USERS_QUERY = gql `
         createdAt
       }
     }
-
   }
 `;

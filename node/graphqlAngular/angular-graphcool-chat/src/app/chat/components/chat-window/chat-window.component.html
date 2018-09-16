@@ -1,3 +1,14 @@
-<p>
-  chat-window works!
-</p>
+<ul>
+  <li *ngFor="let messages of messages$ | async">{{ messages.text }}</li>
+</ul>
+
+
+<mat-toolbar color="primary" class="footer">
+  <mat-toolbar-row>
+    <input type="text" placeholder="Type a message" class="input" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="sendMessage()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
