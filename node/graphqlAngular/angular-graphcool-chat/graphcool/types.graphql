@@ -16,7 +16,7 @@ type User @model {
 type Chat @model {
   id: ID! @isUnique
   title: String
-  isGroup: Boolean! @defautValue(value: "false")
+  isGroup: Boolean! @defautValue(value: false)
   createdAt: DateTime!
   updatedAt: DateTime!
   users: [User!]! @relation(name: "UsersOnChats")
