@@ -3,7 +3,7 @@
 
   <ng-container *ngIf="messages$ | async as messages; else loadingMessages">
     <ng-container *ngIf="messages.length > 0; else noMessages">
-      <app-chat-message *ngFor="let m of messages" [message]="m" [isFromSender]="m.sender.id === authService.authUser.id">
+      <app-chat-message *ngFor="let m of messages; trackBy: trackByFn" [message]="m" [isFromSender]="m.sender.id === authService.authUser.id">
       </app-chat-message>
     </ng-container>
   </ng-container>

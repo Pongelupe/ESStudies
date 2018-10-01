@@ -13,7 +13,7 @@ export class DashboardHomeComponent {
 
   onLogout(sidenav: MatSidenav): void {
     sidenav.close()
-      .then(() => this.authService.logout())
+      .then(() => this.authService.logout());
   }
 
 }

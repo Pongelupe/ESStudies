@@ -3,7 +3,7 @@ import { Message } from './message.model';
 
 export class Chat {
 
-  id?: string;
+  id: string;
   createdAt?: string;
   isGroup?: string;
   title?: string;

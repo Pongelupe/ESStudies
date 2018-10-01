@@ -21,7 +21,7 @@ export class ChatService {
     return this.apollo.query<AllChatsQuery>({
       query: USER_CHATS_QUERY,
       variables: {
-        userId: this.authService.authUser.id
+        loggedUserId: this.authService.authUser.id
       }
     }).
       pipe(
