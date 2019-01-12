@@ -1,6 +1,6 @@
 const electron = require('electron');
 
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 let mainWindow;
 let commentWindow;
 
@@ -19,7 +19,14 @@ function createCommentWindow() {
         title: 'Novo comentário'
     });
     commentWindow.loadURL(`file://${__dirname}/comment.html`);
+    commentWindow.on('closed', () => commentWindow = null);
+    commentWindow.setMenu(null);
 }
+
+ipcMain.on('addComment', (event, comment) => {
+    mainWindow.webContents.send('addComment', comment);
+    commentWindow.close();
+})
 
 const menuTemplate = [
     {
@@ -44,10 +51,11 @@ if (process.platform === 'darwin') {
     menuTemplate.unshift({});
 }
 
-if(process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     menuTemplate.push({
         label: 'dev',
         submenu: [
+            { role: 'reload'},
             {
                 label: 'debug',
                 accelerator: 'Ctrl+Shift+I',
