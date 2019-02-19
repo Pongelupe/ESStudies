@@ -4,13 +4,13 @@
 
     <img class="course-thumbnail" [src]="course?.iconUrl">
 
-    <div class="mat-elevation-z8 lessons-table-container">
+    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
 
-        <div class="spinner-container" *ngIf="loading$ | async">
+        <mat-spinner></mat-spinner>
 
-            <mat-spinner></mat-spinner>
+    </div>
 
-        </div>
+    <div class="mat-elevation-z8">
 
         <mat-table class="lessons-table" [dataSource]="dataSource">
 
