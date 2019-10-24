@@ -12,7 +12,7 @@
     "body-parser": "^1.18.2",
     "consign": "^0.1.6",
     "express": "^4.16.2",
-    "mongoose": "^5.0.9"
+    "mongoose": "^5.7.5"
   },
   "devDependencies": {
     "nodemon": "^1.17.1"
